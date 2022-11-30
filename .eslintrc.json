@@ -30,7 +30,6 @@
       "quotes": ["error", "single"],
       "semi": ["error", "always"],
       "no-duplicate-imports": "error",
-      "no-unused-vars": "warn",
       "camelcase": "error"
   }
 }

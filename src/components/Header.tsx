@@ -1,13 +1,19 @@
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar } from '@mui/material';
+import { makeStyles } from 'tss-react/mui';
+
+const useStyles = makeStyles()({
+  appbarRoot: {
+    backgroundColor: 'rgba(0,0,255,0.5)',
+  },
+});
 
 const Header = () => {
+  const { classes } = useStyles();
+
   return (
-    <div>
-      Header
-      <Link to='/video/1'>test1</Link>
-      <Link to='/channel/1'>videos</Link>
-      <Link to='/search/search'>videos</Link>
-    </div>
+    <AppBar position='fixed' elevation={1} classes={{ root: classes.appbarRoot }}>
+      <Toolbar classes>Logo</Toolbar>
+    </AppBar>
   );
 };
 
