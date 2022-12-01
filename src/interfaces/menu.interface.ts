@@ -3,3 +3,9 @@ export interface IMenuItem {
   url: string;
   text: string;
 }
+
+export interface IListItemLinkProps {
+  icon?: React.ReactElement;
+  text: string;
+  to: string;
+}

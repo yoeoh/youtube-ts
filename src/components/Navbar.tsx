@@ -1,46 +1,69 @@
 import {
   Box,
+  Divider,
+  Drawer,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
   Toolbar,
+  Typography,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
+import { AutoAwesome } from '@mui/icons-material';
 
-import { IMenuItem } from '../interfaces/menu.interface';
+import { IListItemLinkProps, IMenuItem } from '../interfaces/menu.interface';
 
 import { MENU_ITEMS, NAVBAR_WIDTH } from '../constants/menu';
+import { Link } from './RouterLink';
 
 const useStyles = makeStyles()({
   sidebar: {
-    width: `${NAVBAR_WIDTH}px`,
+    width: NAVBAR_WIDTH,
     flexShrink: 0,
-    backgroundColor: 'rgba(255,255,0,0.5)',
+  },
+  drawerPaper: {
+    borderRight: '1px solid #333333',
+    backgroundColor: '#000',
+    color: '#fff',
   },
 });
+
+const ListItemLink = (props: IListItemLinkProps) => {
+  const { icon, text, to } = props;
+
+  return (
+    <li>
+      <ListItem button component={Link} to={to}>
+        {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
+        <ListItemText>
+          <Typography noWrap>{text}</Typography>
+        </ListItemText>
+      </ListItem>
+    </li>
+  );
+};
 
 const Navbar = () => {
   const { classes } = useStyles();
 
   return (
-    <Box className={classes.sidebar}>
-      <Toolbar />
-      <List>
-        {MENU_ITEMS.map((item: IMenuItem) => (
-          <Link to={item.url} key={item.id}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>a</ListItemIcon>
-                <ListItemText primary={item.text} />
-              </ListItemButton>
-            </ListItem>
-          </Link>
-        ))}
-      </List>
-    </Box>
+    <Drawer variant='persistent' open={true} classes={{ paper: classes.drawerPaper }}>
+      <Box className={classes.sidebar}>
+        <Toolbar>Logo</Toolbar>
+        <Divider />
+        <List>
+          {MENU_ITEMS.map((item: IMenuItem) => (
+            <ListItemLink
+              to={item.url}
+              text={item.text}
+              icon={<AutoAwesome htmlColor='#fff' />}
+              key={item.id}
+            />
+          ))}
+        </List>
+      </Box>
+    </Drawer>
   );
 };
 

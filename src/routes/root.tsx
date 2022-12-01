@@ -5,10 +5,10 @@ import { Box, Toolbar } from '@mui/material';
 
 import Navbar from '../components/Navbar';
 import Header from '../components/Header';
+import { NAVBAR_WIDTH } from '../constants/menu';
 
 const useStyles = makeStyles()({
   root: {
-    backgroundColor: 'green',
     minHeight: '100vh',
     display: 'flex',
   },
@@ -17,10 +17,9 @@ const useStyles = makeStyles()({
     flexShrink: 0,
     minHeight: '200vh',
     padding: '1rem',
-    backgroundColor: 'red',
-  },
-  wrapper: {
-    width: '100px',
+    marginLeft: NAVBAR_WIDTH,
+    backgroundColor: '#000',
+    color: '#fff',
   },
 });
 
