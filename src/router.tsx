@@ -6,6 +6,7 @@ import ChannelDetail from './components/ChannelDetail';
 import SearchFeed from './components/SearchFeed';
 import VideoDetail from './components/VideoDetail';
 import ErrorPage from './routes/errorPage';
+import Feed from './components/Feed';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <Root />,
     errorElement: <ErrorPage />,
     children: [
+      { index: true, element: <Feed /> },
       {
         path: '/video/:videoId',
         element: <VideoDetail />,
