@@ -2,12 +2,14 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchFromYoutubeApi } from '../utils/fetchFromYoutubeApi';
 
+import VideosList from './VideosList';
+
 const Feed = () => {
   const { isError, isLoading, data, error } = useQuery(['videos'], () =>
     fetchFromYoutubeApi('search', {
       q: 'standup club',
       part: 'snippet',
-      maxResults: '20',
+      maxResults: '50',
     }),
   );
 
@@ -21,15 +23,7 @@ const Feed = () => {
 
   console.log(data);
 
-  return (
-    <div>
-      {data.items
-        .filter((item: any) => item.id.videoId)
-        .map((item: any, index: number) => (
-          <div key={item.id.videoId}>{`index: ${index}, id: ${item.id.videoId}`}</div>
-        ))}
-    </div>
-  );
+  return <VideosList videos={data.items} />;
 };
 
 export default Feed;

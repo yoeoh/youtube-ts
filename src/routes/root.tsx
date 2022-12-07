@@ -9,17 +9,18 @@ import { NAVBAR_WIDTH } from '../constants/menu';
 
 const useStyles = makeStyles()({
   root: {
+    maxWidth: '100vw',
+    width: '100%',
     minHeight: '100vh',
     display: 'flex',
   },
   container: {
-    flexGrow: 1,
-    flexShrink: 0,
-    minHeight: '200vh',
     padding: '1rem',
     marginLeft: NAVBAR_WIDTH,
     backgroundColor: '#000',
     color: '#fff',
+    maxWidth: '100%',
+    width: '100%',
   },
 });
 
