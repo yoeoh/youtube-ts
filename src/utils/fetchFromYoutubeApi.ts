@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 interface IFetchDataParams {
-  q: string;
   part: string;
+  q?: string;
+  id?: string;
   regionCode?: string;
   maxResults?: string;
   order?: string;
