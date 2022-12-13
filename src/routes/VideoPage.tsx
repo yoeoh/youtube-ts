@@ -1,7 +1,8 @@
 import { Box } from '@mui/material';
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
+import SuggestedVideos from '../components/SuggestedVideos';
 import VideoDetails from '../components/VideoDetails';
 import { fetchFromYoutubeApi } from '../utils/fetchFromYoutubeApi';
 
@@ -14,14 +15,18 @@ const useStyles = makeStyles()({
   },
   videoDetails: {
     minWidth: '480px',
-    flexBasis: '75%',
+    flexBasis: '80%',
     flexShrink: 0,
     flexGrow: 1,
   },
   suggestedVideos: {
-    flexBasis: '20%',
-    flexShrink: 0,
+    flexBasis: '15%',
+    minWidth: '250px',
+    flexShrink: 1,
     flexGrow: 1,
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '1rem',
   },
 });
 
@@ -29,12 +34,27 @@ const VideoPage = () => {
   const { classes } = useStyles();
   const { videoId } = useParams();
 
-  const { isError, isLoading, data, error } = useQuery(['video', videoId], () =>
-    fetchFromYoutubeApi('videos', {
-      id: videoId,
-      part: 'snippet,statistics',
-    }),
-  );
+  const [videoQuery, suggestedVideosQuery] = useQueries({
+    queries: [
+      {
+        queryKey: ['video', videoId],
+        queryFn: () =>
+          fetchFromYoutubeApi('videos', {
+            id: videoId,
+            part: 'snippet,statistics',
+          }),
+      },
+      {
+        queryKey: ['suggestedVideos', videoId],
+        queryFn: () =>
+          fetchFromYoutubeApi('search', {
+            relatedToVideoId: videoId,
+            part: 'snippet,id',
+            type: 'video',
+          }),
+      },
+    ],
+  });
 
   if (!videoId) return <div>No video id</div>;
 
@@ -43,13 +63,21 @@ const VideoPage = () => {
       <Box className={classes.videoDetails}>
         <VideoDetails
           videoId={videoId}
-          isError={isError}
-          isLoading={isLoading}
-          error={error}
-          data={data}
+          isError={videoQuery.isError}
+          isLoading={videoQuery.isLoading}
+          error={videoQuery.error}
+          data={videoQuery.data}
         />
       </Box>
-      <Box className={classes.suggestedVideos}>suggested videos</Box>
+
+      <Box className={classes.suggestedVideos}>
+        <SuggestedVideos
+          isError={suggestedVideosQuery.isError}
+          isLoading={suggestedVideosQuery.isLoading}
+          error={suggestedVideosQuery.error}
+          data={suggestedVideosQuery.data}
+        />
+      </Box>
     </Box>
   );
 };

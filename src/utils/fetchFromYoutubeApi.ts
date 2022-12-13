@@ -8,6 +8,8 @@ interface IFetchDataParams {
   maxResults?: string;
   order?: string;
   pageToken?: string;
+  type?: string;
+  relatedToVideoId?: string;
 }
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -31,6 +33,8 @@ export const fetchFromYoutubeApi = async (endpoint: string, params: IFetchDataPa
   };
 
   const response = await axios.get(`${API_URL}/${endpoint}`, config);
+
+  console.log(response);
 
   return response.data;
 };

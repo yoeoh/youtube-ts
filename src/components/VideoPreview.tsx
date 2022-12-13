@@ -15,14 +15,14 @@ interface VideoPreviewProps {
 }
 
 const useStyles = makeStyles()({
+  card: {
+    backgroundColor: 'rgba(255,255,255,0.1)',
+    color: '#fff',
+  },
   cardMedia: {
     width: '100%',
     aspectRatio: '16 / 9',
     backgroundSize: 'cover',
-  },
-  card: {
-    backgroundColor: 'rgba(255,255,255,0.1)',
-    color: '#fff',
   },
   channelLink: {
     color: '#fff',
