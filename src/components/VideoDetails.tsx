@@ -110,7 +110,12 @@ const VideoDetails = ({ videoId, isError, isLoading, error, data }: IVideoDetail
       </Typography>
 
       <Box className={classes.statistics}>
-        <Typography variant='subtitle1' component={Link} to={`/channel/${channelId}`}>
+        <Typography
+          variant='subtitle1'
+          component={Link}
+          underline='hover'
+          to={`/channel/${channelId}`}
+        >
           {channelTitle}
         </Typography>
         <Box className={classes.statisticsRight}>

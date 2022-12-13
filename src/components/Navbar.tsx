@@ -3,7 +3,7 @@ import {
   Divider,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
   Toolbar,
@@ -34,12 +34,12 @@ const ListItemLink = (props: IListItemLinkProps) => {
 
   return (
     <li>
-      <ListItem button component={Link} to={to}>
+      <ListItemButton component={Link} to={to}>
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText>
           <Typography noWrap>{text}</Typography>
         </ListItemText>
-      </ListItem>
+      </ListItemButton>
     </li>
   );
 };
@@ -50,7 +50,9 @@ const Navbar = () => {
   return (
     <Drawer variant='persistent' open={true} classes={{ paper: classes.drawerPaper }}>
       <Box className={classes.sidebar}>
-        <Toolbar>Logo</Toolbar>
+        <Toolbar>
+          <Link to='/'>TypeTube</Link>
+        </Toolbar>
         <Divider />
         <List>
           {MENU_ITEMS.map((item: IMenuItem) => (
