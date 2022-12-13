@@ -24,7 +24,7 @@ const useStyles = makeStyles()({
   },
 });
 
-const Root = () => {
+const RootLayout = () => {
   const { classes } = useStyles();
 
   return (
@@ -39,4 +39,4 @@ const Root = () => {
   );
 };
 
-export default Root;
+export default RootLayout;

@@ -1,17 +1,18 @@
 import { createBrowserRouter } from 'react-router-dom';
 
-import Root from './routes/root';
+import RootLayout from './layouts/RootLayout';
 import ErrorPage from './routes/ErrorPage';
-import VideoPage from './routes/VideoPage';
 
 import ChannelDetail from './components/ChannelDetail';
 import SearchFeed from './components/SearchFeed';
-import Feed from './components/Feed';
+
+import Feed from './routes/Feed';
+import VideoPage from './routes/VideoPage';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: <RootLayout />,
     errorElement: <ErrorPage />,
     children: [
       { index: true, element: <Feed /> },
@@ -23,11 +24,11 @@ const router = createBrowserRouter([
         path: '/search/:searchTerm',
         element: <SearchFeed />,
       },
+      {
+        path: '/video/:videoId',
+        element: <VideoPage />,
+      },
     ],
-  },
-  {
-    path: '/video/:videoId',
-    element: <VideoPage />,
   },
 ]);
 

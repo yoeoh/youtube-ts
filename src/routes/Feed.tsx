@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 
 import { fetchFromYoutubeApi } from '../utils/fetchFromYoutubeApi';
 
-import VideosList from './VideosList';
+import VideosList from '../components/VideosList';
 
 const Feed = () => {
   const { isError, isLoading, data, error } = useQuery(['videos'], () =>

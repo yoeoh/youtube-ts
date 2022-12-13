@@ -1,37 +1,34 @@
+import { Box } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
-import ReactPlayer from 'react-player/youtube';
-
-import { Box, Toolbar, Typography } from '@mui/material';
-
-import Header from '../components/Header';
-
+import VideoDetails from '../components/VideoDetails';
 import { fetchFromYoutubeApi } from '../utils/fetchFromYoutubeApi';
 
-import { YOUTUBE_VIDEO_BASE_URL } from '../constants/video';
-
-import { IVideoDetails } from '../interfaces/videos.interface';
-
 const useStyles = makeStyles()({
-  root: {
-    maxWidth: '100vw',
-    width: '100%',
-    minHeight: '100vh',
+  videoPageLayout: {
     display: 'flex',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    columnGap: '1rem',
   },
-  container: {
-    padding: '1rem',
-    backgroundColor: '#000',
-    color: '#fff',
-    maxWidth: '100%',
-    width: '100%',
+  videoDetails: {
+    minWidth: '480px',
+    flexBasis: '75%',
+    flexShrink: 0,
+    flexGrow: 1,
+  },
+  suggestedVideos: {
+    flexBasis: '20%',
+    flexShrink: 0,
+    flexGrow: 1,
   },
 });
 
 const VideoPage = () => {
-  const { videoId } = useParams();
   const { classes } = useStyles();
+  const { videoId } = useParams();
+
   const { isError, isLoading, data, error } = useQuery(['video', videoId], () =>
     fetchFromYoutubeApi('videos', {
       id: videoId,
@@ -39,38 +36,20 @@ const VideoPage = () => {
     }),
   );
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (isError) {
-    return <div>{`Error ${error}`}</div>;
-  }
-
-  const {
-    snippet: { channelId, channelTitle, description, title, publishedAt, thumbnails, tags },
-    statistics: { commentCount, favoriteCount, likeCount, viewCount },
-  } = data.items[0] as IVideoDetails;
+  if (!videoId) return <div>No video id</div>;
 
   return (
-    <Box className={classes.root}>
-      <Header />
-      <Box className={classes.container} component='main'>
-        <Toolbar />
-        <Box>
-          <ReactPlayer
-            url={`${YOUTUBE_VIDEO_BASE_URL}${videoId}`}
-            controls
-            light
-            width='80vw'
-            height='80vh'
-          />
-          <Typography variant='h4' gutterBottom>
-            {title}
-          </Typography>
-          <Typography variant='subtitle2'>{description}</Typography>
-        </Box>
+    <Box className={classes.videoPageLayout}>
+      <Box className={classes.videoDetails}>
+        <VideoDetails
+          videoId={videoId}
+          isError={isError}
+          isLoading={isLoading}
+          error={error}
+          data={data}
+        />
       </Box>
+      <Box className={classes.suggestedVideos}>suggested videos</Box>
     </Box>
   );
 };
