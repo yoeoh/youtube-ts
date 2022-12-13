@@ -9,6 +9,7 @@ const Feed = () => {
     fetchFromYoutubeApi('search', {
       q: 'standup club',
       part: 'snippet',
+      type: 'video',
       maxResults: '50',
     }),
   );

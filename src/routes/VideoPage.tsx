@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from 'tss-react/mui';
@@ -32,7 +32,7 @@ const useStyles = makeStyles()({
 
 const VideoPage = () => {
   const { classes } = useStyles();
-  const { videoId } = useParams();
+  const { videoId } = useParams<{ videoId: string }>() as { videoId: string };
 
   const [videoQuery, suggestedVideosQuery] = useQueries({
     queries: [
@@ -56,7 +56,7 @@ const VideoPage = () => {
     ],
   });
 
-  if (!videoId) return <div>No video id</div>;
+  if (!videoQuery?.data?.items?.length) return <div>no video</div>;
 
   return (
     <Box className={classes.videoPageLayout}>
@@ -71,6 +71,7 @@ const VideoPage = () => {
       </Box>
 
       <Box className={classes.suggestedVideos}>
+        <Typography variant='h6'>Related videos</Typography>
         <SuggestedVideos
           isError={suggestedVideosQuery.isError}
           isLoading={suggestedVideosQuery.isLoading}

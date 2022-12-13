@@ -52,12 +52,10 @@ const VideoPreview = ({ video }: VideoPreviewProps) => {
     snippet: { title, channelTitle, channelId, thumbnails, publishedAt },
   } = video;
 
-  const date = new Date(publishedAt);
-
-  const dateString = new Intl.DateTimeFormat('ru-RU', {
+  const dateString = new Intl.DateTimeFormat('en-US', {
     dateStyle: 'medium',
     timeStyle: 'short',
-  }).format(date);
+  }).format(new Date(publishedAt));
 
   return (
     <Card classes={{ root: classes.card }}>

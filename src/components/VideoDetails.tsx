@@ -28,6 +28,7 @@ const useStyles = makeStyles()({
     flexDirection: 'row',
     flexWrap: 'nowrap',
     marginBottom: '1rem',
+    alignItems: 'center',
   },
   statisticsRight: {
     marginLeft: 'auto',
@@ -60,6 +61,7 @@ const useStyles = makeStyles()({
   descriptionWrapper: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: '0.5rem',
+    marginBottom: '2rem',
     borderRadius: '0.25rem',
 
     '&:hover': {
@@ -72,10 +74,6 @@ const VideoDetails = ({ videoId, isError, isLoading, error, data }: IVideoDetail
   const { classes } = useStyles();
   const [descOpenned, setDescOpenned] = useState(false);
 
-  const handleDescOpen = () => {
-    setDescOpenned(!descOpenned);
-  };
-
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -84,14 +82,23 @@ const VideoDetails = ({ videoId, isError, isLoading, error, data }: IVideoDetail
     return <div>{`Error ${error}`}</div>;
   }
 
-  if (!data.items.length) {
-    return <div>No data</div>;
+  if (!data?.items?.length) {
+    return <div>No video</div>;
   }
+
+  const handleDescOpen = () => {
+    setDescOpenned(!descOpenned);
+  };
 
   const {
     snippet: { channelId, channelTitle, description, title, publishedAt, tags },
     statistics: { commentCount, likeCount, viewCount },
   } = data.items[0] as IVideoDetails;
+
+  const dateString = new Intl.DateTimeFormat('en-US', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(new Date(publishedAt));
 
   return (
     <Box>
@@ -118,6 +125,7 @@ const VideoDetails = ({ videoId, isError, isLoading, error, data }: IVideoDetail
         >
           {channelTitle}
         </Typography>
+
         <Box className={classes.statisticsRight}>
           <Box className={classes.statisticsItem}>
             <Typography variant='caption'>commentaries</Typography>
@@ -145,7 +153,7 @@ const VideoDetails = ({ videoId, isError, isLoading, error, data }: IVideoDetail
       >
         <Box className={classes.description}>
           <Typography variant='caption' gutterBottom>
-            {publishedAt}
+            {`Published at ${dateString}`}
           </Typography>
           <Typography variant='subtitle2' gutterBottom>
             {description}

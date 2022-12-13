@@ -1,4 +1,3 @@
-import { Box } from '@mui/material';
 import { ISearchVideoPreview } from '../interfaces/videos.interface';
 import VideoPreview from './VideoPreview';
 
@@ -20,8 +19,8 @@ const SuggestedVideos = ({ isError, isLoading, error, data }: ISuggestedVideosPr
     return <div>{`Error ${error}`}</div>;
   }
 
-  if (!data.items.length) {
-    return <div>No data</div>;
+  if (!data?.items?.length) {
+    return <div>No suggested videos</div>;
   }
 
   const videos = data.items.splice(0, 10);
