@@ -47,3 +47,24 @@ export interface IVideoDetails {
     viewCount: string;
   };
 }
+
+export interface IChannelDetails {
+  snippet: {
+    title: string;
+    description: string;
+    thumbnails: IThumbnails;
+  };
+  statistics: {
+    viewCount: string;
+    subscriberCount: string;
+    videoCount: string;
+  };
+}
+
+export interface IFetchedChannelDetails {
+  items: Array<IChannelDetails>;
+}
+
+export interface IFetchedData {
+  items: Array<ISearchVideoPreview | IVideoDetails | IChannelDetails>;
+}

@@ -43,6 +43,8 @@ const VideoPage = () => {
             id: videoId,
             part: 'snippet,statistics',
           }),
+        refetchOnWindowFocus: false,
+        staleTime: 3600000,
       },
       {
         queryKey: ['suggestedVideos', videoId],
@@ -52,6 +54,8 @@ const VideoPage = () => {
             part: 'snippet,id',
             type: 'video',
           }),
+        refetchOnWindowFocus: false,
+        staleTime: 3600000,
       },
     ],
   });

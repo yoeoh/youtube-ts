@@ -3,11 +3,11 @@ import { createBrowserRouter } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import ErrorPage from './routes/ErrorPage';
 
-import ChannelDetail from './components/ChannelDetail';
 import SearchFeed from './components/SearchFeed';
 
 import Feed from './routes/Feed';
 import VideoPage from './routes/VideoPage';
+import ChannelPage from './routes/ChannelPage';
 
 const router = createBrowserRouter([
   {
@@ -18,7 +18,7 @@ const router = createBrowserRouter([
       { index: true, element: <Feed /> },
       {
         path: '/channel/:channelId',
-        element: <ChannelDetail />,
+        element: <ChannelPage />,
       },
       {
         path: '/search/:searchTerm',

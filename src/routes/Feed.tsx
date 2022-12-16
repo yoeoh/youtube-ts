@@ -22,8 +22,6 @@ const Feed = () => {
     return <div>{`Error ${error}`}</div>;
   }
 
-  console.log(data);
-
   return <VideosList videos={data.items} />;
 };
 

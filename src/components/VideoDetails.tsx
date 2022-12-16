@@ -22,6 +22,7 @@ interface IVideoDetailsParams {
 const useStyles = makeStyles()({
   playerWrapper: {
     aspectRatio: '16 / 9',
+    marginBottom: '1rem',
   },
   statistics: {
     display: 'flex',
